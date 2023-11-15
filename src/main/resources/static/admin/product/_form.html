@@ -1,0 +1,96 @@
+<div class="row mx-0 bg-white">
+	<div class="col-md-4 text-center">
+		<span ng-if="form.image == null"> <img
+			ng-src="{{'/assets/images/cloud-upload.jpg'}}"
+			style="max-width: 100%; margin-top: 5rem">
+		</span> <span ng-if="form.image != null"> <img
+			ng-src="{{'/assets/images/'+form.image}}"
+			style="max-width: 100%; margin-top: 5rem">
+		</span>
+	</div>
+	<div class="col-md-8">
+		<form class="form p-4">
+			<div class="form-group row">
+				<label class="form-label">Tên sản phẩm</label> <input type="text"
+					class="form-control" ng-model="form.name" placeholder="Nhập tên">
+			</div>
+			<div class="form-group row">
+				<label class="form-label">Giá</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text">VNĐ</span>
+					</div>
+					<input type="number" class="form-control" ng-model="form.price"
+						placeholder="Nhập giá">
+				</div>
+				<div class="form-group row" style="margin-top: 5px; margin-left: 5px;">
+					<label class="form-label">Ngày tạo</label> <input type="date"
+						class="form-control" ng-model="form.createDate"
+						placeholder="yyyy-mm-dd">
+				</div>
+				 
+				<div class="form-group row" style="padding-left: 15px; margin-left: 15px; margin-top: 5px;">
+					<label class="form-label">Số lượng</label> <input type="text"
+						class="form-control" ng-model="form.quantity"
+						placeholder="Nhập số lượng">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="form-label">Hình ảnh</label>
+				<div class="custom-file">
+					<input type="file" class="custom-file-input" id="image"
+						onchange="angular.element(this).scope().imageChanged(this.files)">
+					<label class="custom-file-label">Choose file</label>
+				</div>
+				<div class="form-group row" style="padding-left: 15px;">
+					<label class="form-label">Size</label> <input type="text"
+						class="form-control" ng-model="form.quality"
+						placeholder="Nhập size">
+				</div>
+
+			</div>
+			<div class="form-group row">
+				<label class="form-label">Loại Hàng</label> <select
+					ng-model="form.category.id" class="custom-select">
+					<option ng-repeat="c in cates" ng-value="c.id">{{c.name}}</option>
+				</select>
+			</div>
+
+
+
+			<div class="form-group row">
+				<label class="col-md-2 px-0 control-label">Có sẵn</label>
+				<div class="col-md-10">
+					<div class="form-check-inline pr-3">
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="yes"
+								name="available" ng-model="form.available" ng-value="true">
+							<label class="custom-control-label" for="yes">Còn hàng</label>
+						</div>
+					</div>
+					<div class="form-check-inline">
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input" id="no"
+								name="available" ng-model="form.available" ng-value="false">
+							<label class="custom-control-label" for="no">Hết hàng</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="card-header text-center">
+	<button ng-click="create()" class="btn btn-primary">
+		<i class="fas fa-plus"></i> Thêm sản phẩm
+	</button>
+	<button ng-click="update()" class="btn btn-success">
+		<i class="far fa-save"></i> Cập nhật
+	</button>
+	<button ng-click="delete(form)" class="btn btn-danger">
+		<i class="fas fa-trash"></i> Xóa
+	</button>
+	<button ng-click="reset()" class="btn btn-secondary">
+		<i class="fas fa-redo"></i> Làm mới
+	</button>
+</div>

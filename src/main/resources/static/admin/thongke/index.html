@@ -1,0 +1,29 @@
+<div>
+	<div class="container">
+		<h1 class="mt-5">Doanh thu và số đơn hàng bán được</h1>
+
+		<div>
+			<label for="dateFilter">Chọn ngày hoặc tháng:</label><select id="dateFilter" class="ms-2 form-select fw-bold" ng-model="filterDTHoaHong" ng-change="thongke()">
+				<option value="DAY" active>Hôm nay</option>
+				<option value="-1DAY">Hôm qua</option>
+				<option value="-7DAY">7 ngày qua</option>
+				<option value="-30DAY">30 ngày qua</option>
+			</select>
+			<div class="col-12 d-flex justify-content-around py-0 mt-5">
+				<div class="col-3 pt-2 d-flex flex-column align-items-center justify-content-center" style="background-color: rgb(96,93,175); border-radius: 15px;">
+					<span class="fs-5 fw-bold">DOANH THU</span>
+					<h3 class="fw-bold">{{toTalDoanhThu *1000| currency:"":0}} đ</h3>
+				</div>
+				<div class="col-3 pt-2 d-flex flex-column align-items-center justify-content-center" style="background-color: rgb(96,93,175); border-radius: 15px;">
+					<span class="fs-5 fw-bold">TỔNG ĐƠN HÀNG</span>
+					<h3 class="fw-bold">{{toTalDonHang}}</h3>
+				</div>
+				<div class="col-3 pt-2  d-flex flex-column align-items-center justify-content-center" style="background-color: rgb(96,93,175); border-radius: 15px;">
+					<span class="fs-5 fw-bold">TỔNG SẢN PHẨM</span>
+					<h3 class="fw-bold">{{toTalSanPham}}</h3>
+				</div>
+			</div>
+		</div>
+		<canvas id="myChart" width="400" height="200"></canvas>
+	</div>
+</div>

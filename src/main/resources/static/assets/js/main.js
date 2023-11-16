@@ -10,8 +10,7 @@ app.run(function ($http, $rootScope) {
 })
 
 app.factory('product', function() {
-	var product =  JSON.parse(localStorage.getItem('product')) || [];
-	
+	var product =  localStorage.getItem('product') != null ? JSON.parse(localStorage.getItem('product')) : [];	
 	return {
 	  getProduct: function() {
 		return product;
@@ -87,15 +86,16 @@ app.controller("shopping-ctrl", function ($scope, $http, product, $location) {
         });
     }  
     $scope.loadProduct = function(id){
+        alert("okok")
         $http({
             method: 'GET',
-            url:"/rest/products/"+ id,
+            url:"/rest/products/"+id,
             headers: {
                 'Content-Type': 'application/json',
             }
         }).then(
             function successCallback(response) {// Nếu thành công
-                console.log(response.data)
+                console.log(response)
                 product.setProduct(response.data);
             },
             function errorCallback(response) { // Nếu thất bại

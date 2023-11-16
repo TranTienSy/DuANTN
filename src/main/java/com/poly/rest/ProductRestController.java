@@ -50,6 +50,7 @@ public class ProductRestController {
 		productDTO.setAvailable(product.getAvailable());
 		productDTO.setListOfProductVariants(product.getListOfProductvariants());
 		productDTO.setCategoryId(Integer.parseInt(product.getCategory().getId().trim()));
+		productDTO.setCategory(product.getCategory());
 		return productDTO;
 	}
 

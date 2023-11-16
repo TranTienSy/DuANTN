@@ -38,6 +38,7 @@ app.controller("shopping-ctrl", function ($scope, $http, product, $location) {
     $scope.color = null; // Chọn mặc định là phần tử đầu tiên trong danh sách màu
     $scope.size = null;
    
+    if($scope.product.listOfProductVariants!= null){
 
     $scope.product.listOfProductVariants.forEach(p => {
         // Kiểm tra xem tên màu đã xuất hiện chưa
@@ -52,6 +53,9 @@ app.controller("shopping-ctrl", function ($scope, $http, product, $location) {
             $scope.listSize.push(p.size);
         }
     });
+
+    }
+
 
     // Hàm lấy danh sách màu sắc theo kích thước
     $scope.getColorsBySize = function(size) {

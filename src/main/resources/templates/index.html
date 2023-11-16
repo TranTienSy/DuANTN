@@ -38,7 +38,7 @@
 									<div class="product-item mb-4">
 										<div class="inner-content">
 											<div class="product-thumb">
-												<a th:href="@{|/product/detail/${p.id}|}">
+												<a th:href="@{|/product/detail/${p.id}|}" th:attr="ng-click=@{|loadProduct(${p.id})|}">
 													<img class="product-item m-auto d-block " th:src="@{|/assets/images/${p.image}|}" th:title="${p.name}">
 												</a>
 												<div class="product-action">

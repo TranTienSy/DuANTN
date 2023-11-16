@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/layout/index :: dynamic(~{::main})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
 <body>
 	<main>
 		<section class="home-slider-area">
-			<div
-				class="swiper-container swiper-slide-gap home-slider-container default-slider-container">
+			<div class="swiper-container swiper-slide-gap home-slider-container default-slider-container">
 				<div class="swiper-wrapper home-slider-wrapper slider-default">
 					<div class="swiper-slide">
-						<div class="slider-content-area"
-							data-bg-img="assets/img/slider/4.jpg"></div>
+						<div class="slider-content-area" data-bg-img="assets/img/slider/4.jpg"></div>
 					</div>
 					<div class="swiper-slide">
-						<div class="slider-content-area"
-							data-bg-img="assets/img/slider/slider-03.jpg"></div>
+						<div class="slider-content-area" data-bg-img="assets/img/slider/slider-03.jpg"></div>
 					</div>
 				</div>
 				<div class="swiper-button-next">
@@ -42,19 +38,13 @@
 									<div class="product-item mb-4">
 										<div class="inner-content">
 											<div class="product-thumb">
-												<a th:href="@{|/product/detail/${p.id}|}"> <img
-													class="product-item m-auto d-block "
-													th:src="@{|/assets/images/${p.image}|}"
-													th:title="${p.name}">
+												<a th:href="@{|/product/detail/${p.id}|}">
+													<img class="product-item m-auto d-block " th:src="@{|/assets/images/${p.image}|}" th:title="${p.name}">
 												</a>
 												<div class="product-action">
 													<div class="addto-wrap">
-														<a class="add-wishlist" href="javascript:(0);"> <i
-															class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
-														</a> <a class="add-cart"
-															th:href="@{|/product/detail/${p.id}|}"
-															th:attr="ng-click=@{|cart.add(${p.id})|}"> <i
-															class="zmdi zmdi-shopping-cart-plus icon"></i>
+														<a class="add-wishlist" href="javascript:(0);">
+															<i class="zmdi zmdi-favorite-outline zmdi-hc-fw icon"></i>
 														</a>
 													</div>
 												</div>
@@ -62,7 +52,7 @@
 											<div class="product-desc">
 												<div class="product-info">
 													<h4 class="title">
-														<a th:href="@{|/product/detail/${p.id}|}">[(${p.name})]</a>
+														<a th:href="@{|/product/detail/${p.id}|}" th:attr="ng-click=@{|loadProduct(${p.id})|}">[(${p.name})]</a>
 													</h4>
 													<div class="prices">
 														<span class="price">[[${#numbers.formatDecimal(p.price,0,'COMMA',3,'POINT')}]] VNĐ</span>
@@ -91,8 +81,9 @@
 										<i class="fa fa-chevron-left"></i>
 									</button>
 								</li>
-								<li><a class="active">{{pager.page+1}} of
-										{{pager.count?pager.count:'1'}}</a></li>
+								<li>
+									<a class="active">{{pager.page+1}} of {{pager.count?pager.count:'1'}}</a>
+								</li>
 								<li>
 									<button class="next" ng-click="pager.next()">
 										<i class="fa fa-chevron-right"></i>
@@ -131,7 +122,7 @@
 									</div>
 									<div class="content">
 										<h5 class="title">Hỗ trợ 24/7</h5>
-										
+
 										<p>Liên hệ với chúng tôi</p>
 									</div>
 								</div>
@@ -165,7 +156,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</section>
 
 		</div>

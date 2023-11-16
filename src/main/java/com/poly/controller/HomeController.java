@@ -22,13 +22,16 @@ public class HomeController {
 	@Autowired
 	ProductService productService;
 
+	@Autowired
+	ProductDAO productDAO;
+
 	@RequestMapping({ "/", "/index" })
 	public String home(Model model, @RequestParam("cid") Optional<String> cid) {
 		if (cid.isPresent()) {
 			List<Product> list = productService.findByCategoryId(cid.get());
 			model.addAttribute("items", list);
 		} else {
-			List<Product> list = productService.findAll();
+			List<Product> list = productDAO.getAllProductDESC();
 			model.addAttribute("items", list);
 		}
 		return "index";

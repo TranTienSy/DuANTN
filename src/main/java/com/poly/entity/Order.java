@@ -30,7 +30,22 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-	String address;
+
+	@Column(name = "Tinh", length = 100)
+	private String tinh;
+
+	@Column(name = "Huyen", length = 100)
+	private String huyen;
+
+	@Column(name = "Xa", length = 100)
+	private String xa;
+
+	@Column(name = "chitiet", length = 100)
+	private String chitiet;
+
+	@Column(name = "Phone", length = 30)
+	private String phone;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Createdate")
 	Date createDate = new Date();
@@ -40,9 +55,10 @@ public class Order implements Serializable {
 	Account account;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<OrderDetail> orderDetails;
-	
+
 	@Column(name = "status", nullable = true)
 	String status;
+	
 }

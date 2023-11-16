@@ -5,8 +5,8 @@
 			<div class="col-6 col-sm-4 col-lg-3">
 				<div class="header-logo-area">
 					<a th:href="@{/}"> <img class="logo-main"
-						src="assets/img/sunshet.png" alt="Logo" height="120px" /> <img
-						class="logo d-none" src="assets/img/sunshet.png" alt="Logo" />
+						src="assets/img/logoNew.jpg" alt="Logo" height="120px" /> <img
+						class="logo d-none" src="assets/img/logoNew.jpg" alt="Logo" />
 					</a>
 				</div>
 			</div>
@@ -84,6 +84,7 @@
 								<li class="account">
 									<ul>
 										<th:block th:unless="${#request.remoteUser}">
+										
 											<li><a th:href="@{/auth/login/form}">Đăng nhập</a></li>
 											<li><a th:href="@{/auth/register}">Đăng ký</a></li>
 											<li><a th:href="@{/auth/forgot-password}">Quên mật
@@ -92,8 +93,9 @@
 										<th:block th:if="${#request.remoteUser}">
 											<li
 												th:if="${#request.isUserInRole('Dire') or #request.isUserInRole('STAF')}">
-												<a th:href="@{/admin}">Trang quản lí</a>
+												<a th:href="@{/admin}" >Trang quản lí</a>
 											</li>
+											<li><a th:href="@{/user/profile}">Cập nhật địa chỉ</a></li>
 											<li><a th:href="@{/order/list}">Đơn hàng của bạn</a></li>
 											<li><a th:href="@{/auth/change-password}">Đổi mật khẩu
 													</a></li>

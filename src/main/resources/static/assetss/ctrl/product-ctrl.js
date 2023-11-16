@@ -6,6 +6,122 @@ app.controller("product-ctrl", function ($scope, $http) {
     $scope.cates = [];
     $scope.form = {};
 
+
+    $scope.product = {
+        name: '',
+        variants: []
+    };
+
+    $scope.addVariant = function () {
+        if (!$scope.form) {
+            $scope.form = {};
+        }
+    
+        if (!$scope.form.listOfProductVariants) {
+            $scope.form.listOfProductVariants = [];
+        }
+    
+        if ($scope.isVariantDataEntered()) {
+            $scope.form.listOfProductVariants.push({
+                size: '',
+                color: '',
+                quantity: ''
+            });
+        } else {
+            alert('Vui lòng nhập đầy đủ thông tin biến thể trước khi thêm một biến thể mới.');
+        }
+    };
+
+    $scope.removeVariant = function (index) {
+        if ($scope.form.listOfProductVariants.length > 1) {
+            $scope.form.listOfProductVariants.splice(index, 1);
+        } else {
+            alert('Bạn phải nhập đẩy đủ thuộc tính');
+        }
+    };
+
+    $scope.isVariantDataEntered = function () {
+        if ($scope.form && $scope.form.listOfProductVariants) {
+            return $scope.form.listOfProductVariants.every(function (variant) {
+                return variant.size.trim() !== '' && variant.color.trim() !== '' && variant.quantity !== '';
+            });
+        } else {
+            return true;
+        }
+    };
+
+    $scope.addProduct = function () {
+        if ($scope.isVariantDataEntered()) {
+          
+            var dataSend = {
+                product : angular.copy($scope.form),
+                listOfProductvariants :  $scope.form.listOfProductVariants
+            }
+            if(!$scope.form.listOfProductVariants){
+                alert("Vui Lòng Nhập Thuộc Tính Của Sản Phẩm");
+                return;
+            }
+
+            $http({
+                method: 'POST',
+                url: url,
+                data: dataSend,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(
+                function successCallback(resp) {// Nếu thành công
+                    resp.data.createDate = new Date(resp.data.createDate)
+                    $scope.items.push(resp.data);
+                    $scope.reset();
+                    sweetalert("Thêm mới thành công!");
+                },
+                function errorCallback(response) { // Nếu thất bại
+                    sweetalert("Lỗi thêm mới sản phẩm!");
+                    console.log("Error", error);
+                }
+            )
+            // Bạn có thể thêm mã ở đây để gửi dữ liệu đến máy chủ bằng AJAX hoặc các phương thức khác
+        } else {
+            alert('Vui lòng nhập đầy đủ thông tin biến thể trước khi thêm một biến thể mới.');
+        }
+    };
+
+    
+    $scope.updateProduct = function () {
+        if ($scope.isVariantDataEntered()) {
+
+            var item = angular.copy($scope.form);
+            var dataSend = {
+                product : item,
+                listOfProductvariants :  $scope.form.listOfProductVariants
+            }
+
+            $http({
+                method: 'PUT',
+                url: url+"/"+item.id,
+                data: dataSend,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(
+                function successCallback(resp) {// Nếu thành công
+                    var index = $scope.items.findIndex(p => p.id == item.id);
+                    $scope.items[index] = item;
+                    $scope.reset();
+                    sweetalert("Cập nhật sản phẩm thành công!");
+                },
+                function errorCallback(response) { // Nếu thất bại
+                    sweetalert("Lỗi cập nhật sản phẩm!");
+                console.log("Error", error);
+                }
+            )
+            // Bạn có thể thêm mã ở đây để gửi dữ liệu đến máy chủ bằng AJAX hoặc các phương thức khác
+        } else {
+            alert('Vui lòng nhập đầy đủ thông tin biến thể trước khi thêm một biến thể mới.');
+        }
+    };
+
     var sweetalert = function (text) {
         Swal.fire({
             icon: "success",
@@ -18,6 +134,7 @@ app.controller("product-ctrl", function ($scope, $http) {
     $scope.initialize = function () {
         //load product
         $http.get(url).then(resp => {
+            console.log(resp.data)
             $scope.items = resp.data;
             $scope.items.forEach(item => {
                 item.createDate = new Date(item.createDate)

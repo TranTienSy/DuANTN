@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index :: dynamic(~{::main})}">
+
+
+
+	<body>
+		<main>
+		<div class="container light-style flex-grow-1 container-p-y px-5">
+			<h4 class="font-weight-bold py-3 mb-4">Thông tin tài khoản</h4>
+			<div class="card overflow-hidden">
+				<div class="row no-gutters row-bordered row-border-light">
+					<div class="col-md-3 pt-0">
+						<div class="list-group list-group-flush account-settings-links">
+							<a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-list-address">Danh Sách Địa Chỉ</a>
+							<a class="list-group-item list-group-item-action " data-toggle="list" href="#account-general">Thông Tin</a>
+
+							<a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Quên Mật Khẩu</a>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="tab-content">
+							<div class="tab-pane fade" id="account-general">
+								<div class="card-body media align-items-center">
+									<img th:src="@{/images/avarta.jpg}" alt class="d-block ui-w-80">
+									<div class="media-body ml-4">
+										<label class="btn btn-outline-primary"> Upload new photo <input type="file" class="account-settings-fileinput">
+										</label> &nbsp;
+									</div>
+								</div>
+								<hr class="border-light m-0">
+								<form th:action="@{/home/profile/update}" method="post" object="infomationUser">
+									<div class="card-body">
+										<div class="form-group" style="display: inline-block; width: 48%">
+											<label class="form-label">Họ</label>
+											<input type="text" name="firstName" class="form-control mb-1">
+
+										</div>
+										<div class="form-group" style="display: inline-block; width: 48%; margin-left: 20px">
+											<label class="form-label">Tên</label>
+											<input type="text" name="lastName" class="form-control mb-1">
+											<!--  th:value="${session.account.lastName}" -->
+										</div>
+										<div class="form-group">
+											<label class="form-label">Email</label>
+											<input type="text" name="email" class="form-control">
+										</div>
+										<div class="form-group">
+											<label class="form-label">Số Điện Thoại</label>
+											<input type="text" name="phoneNumber" class="form-control mb-1">
+										</div>
+										<div class="form-group">
+											<label class="form-label">Company</label>
+											<input type="text" class="form-control" value="">
+										</div>
+									</div>
+									<button th:onclick="return confirm('Xác Nhận Cập Nhật')" type="submit" class="btn btn-primary" style="float: right; margin: 10px 10px 10px 10px">Save changes</button>
+									&nbsp;
+								</form>
+							</div>
+
+
+							<div class="tab-pane fade" id="account-address">
+								<form action="/user/profile/add-address" method="post" id="formAddress" th:object="${address}">
+									<div class="card-body pb-2">
+										<div class="mb-3">
+											<label for="provinceSelect" class="form-label">Tỉnh/Thành Phố</label>
+											<select class="form-select" name="tinh" id="provinceSelect">
+												<!-- Các tùy chọn tỉnh/thành phố ở đây -->
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="districtSelect" class="form-label">Huyện/Quận</label>
+											<select class="form-select" id="districtSelect">
+												<!-- Các tùy chọn huyện/quận ở đây -->
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="wardSelect" class="form-label">Xã Phường</label>
+											<select class="form-select" id="wardSelect">
+												<!-- Các tùy chọn xã/phường ở đây -->
+											</select>
+										</div>
+										<div class="mb-3">
+											<label for="detailAddress" class="form-label">Chi Tiết Địa Chỉ</label>
+											<textarea class="form-control" name="detailAddress" id="detailAddress" rows="5"></textarea>
+										</div>
+									</div>
+									<button type="submit" id="submitButton" class="btn btn-primary" style="float: right; margin: 10px 10px 10px 10px">Cập Nhật</button>
+									&nbsp;
+								</form>
+								
+
+							</div>
+
+
+							<div class="tab-pane fade" id="account-change-password">
+								<form th:action="@{/home/profile/resetpassword}" method="post" object="password">
+									<div class="card-body pb-2">
+										<div class="form-group">
+											<label class="form-label">Mật Khẩu Hiện Tại</label>
+											<input name="password" type="text" class="form-control">
+										</div>
+										<div class="form-group">
+											<label class="form-label">Mật Khẩu Mới</label>
+											<input name="newPassword" type="password" class="form-control">
+										</div>
+									</div>
+									<button th:onclick="return confirm('Xác Nhận Cập Nhật')" type="submit" class="btn btn-primary" style="float: right; margin: 10px 10px 10px 10px">Cập Nhật</button>
+									&nbsp;
+								</form>
+							</div>
+
+							<div class="tab-pane fade   active show" id="account-list-address">
+								<section class="ftco-section">
+									<div class="container">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="table-wrap">
+													<table class="table">
+														<thead class="thead-light">
+															<tr>
+																<th>ID</th>
+																<th>Tỉnh/Thành Phố</th>
+																<th>Huyện/Quận</th>
+																<th>Xã/Phường</th>
+																<th>Chi Tiết</th>
+																<th>Hoạt Động</th>
+															</tr>
+														</thead>
+														<tbody>
+
+															<tr class="alert" role="alert" th:each="a : ${listAddress}">
+																<th scope="row" th:text="${a.id}"></th>
+																<td th:text="${a.tinh}"></td>
+																<td th:text="${a.huyen}"></td>
+																<td th:text="${a.xa}"></td>
+																<td th:text="${a.chitiet}"></td>
+																<td>
+																	<a data-toggle="list" href="#account-address">Chi Tiết</a>
+																	<a th:href="@{'/user/profile/address/delete/' + ${a.id}}">Xoá</a>
+																</td>
+															</tr>
+
+														</tbody>
+													</table>
+													<button type="submit" class="btn btn-primary" style="float: right; margin: 10px 10px 10px 10px">
+														<a data-toggle="list" href="#account-address" style="color: white;">Thêm Mới</a>
+													</button>
+													&nbsp;
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" th:src="@{/assets/js/getApiAddressGHN.js}"></script>
+		<script type="text/javascript"></script>
+		<script>
+			$(document).ready(function () {
+				$("#formAddress").submit(function (event) {
+					event.preventDefault();
+
+					var provinceText = $("#provinceSelect option:selected").text();
+					var districtText = $("#districtSelect option:selected").text();
+					var wardText = $("#wardSelect option:selected").text();
+					var detailAddress = $("#detailAddress").val();
+
+					var data = {
+						tinh: provinceText,
+						huyen: districtText,
+						xa: wardText,
+						chitiet: detailAddress
+					};
+
+					console.log(data)
+					var formAction = $(this).attr('action');
+					$.ajax({
+						type: "POST",
+						url: formAction,
+						data: JSON.stringify(data),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (response) {
+							alert("Cập nhật thành công")
+							window.location.href = "http://localhost:8080/user/profile";
+						},
+						error: function (error) {
+							window.location.href = "http://localhost:8080/user/profile";
+						}
+					});
+
+				});
+			});
+
+			$(document).ready(function () {
+				// Lấy các ô select và textarea
+				const provinceSelect = $("#provinceSelect");
+				const districtSelect = $("#districtSelect");
+				const wardSelect = $("#wardSelect");
+				const detailAddress = $("#detailAddress");
+
+				// Khi nhấp vào một dòng trong bảng
+				$("table tbody tr").click(function () {
+					// Lấy các giá trị từ dòng được chọn
+					var id = $(this).find("th").text();
+					var selectedProvince = $(this).find("td:nth-child(2)").text();
+					var selectedDistrict = $(this).find("td:nth-child(3)").text();
+
+					var selectedWard = $(this).find("td:nth-child(4)").text();
+					var selectedDetail = $(this).find("td:nth-child(5)").text();
+
+
+					// Đặt các giá trị vào các ô select và textarea cho tỉnh/thành phố và chi tiết địa chỉ
+					provinceSelect.find("option:contains('" + selectedProvince + "')").prop("selected", true);
+					detailAddress.val(selectedDetail);
+
+					var formAction = "/user/profile/add-address/" + id;
+					$("#formAddress").attr("action", formAction);
+					// Gọi hàm cập nhật quận/huyện và xã/phường
+					updateDistricts(selectedProvince, selectedDistrict);
+				});
+
+				// Hàm cập nhật quận/huyện và xã/phường
+				function updateDistricts(selectedProvince, selectedDistrict) {
+					const selectedProvinceID = provinceSelect.val();
+
+					// Lấy dữ liệu quận/huyện dựa trên ProvinceID
+					fetch(`https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${selectedProvinceID}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Token": token
+						}
+					})
+						.then(response => response.json())
+						.then(data => {
+							// Xóa các tùy chọn cũ và thêm tùy chọn mới cho Quận/Huyện
+							districtSelect.html(""); // Sử dụng .html("") để xóa tùy chọn cũ
+							data.data.forEach(district => {
+								const option = $("<option></option>").val(district.DistrictID).text(district.DistrictName);
+								districtSelect.append(option);
+							});
+
+							// Đặt giá trị cho ô select quận/huyện
+							districtSelect.find("option:contains('" + selectedDistrict + "')").prop("selected", true);
+
+							// Gọi hàm cập nhật xã/phường
+							updateWards(selectedDistrict);
+						})
+						.catch(error => {
+							console.error("Lỗi khi lấy dữ liệu quận/huyện từ API:", error);
+						});
+				}
+
+				// Hàm cập nhật xã/phường
+				function updateWards(selectedDistrict) {
+					const selectedDistrictID = districtSelect.val();
+					console.log(selectedDistrictID)
+
+					// Lấy dữ liệu phường/xã dựa trên DistrictID
+					fetch(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${selectedDistrictID}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Token": token
+						}
+					})
+						.then(response => response.json())
+						.then(data => {
+							console.log("ok")
+							// Xóa các tùy chọn cũ và thêm tùy chọn mới cho Xã/Phường
+							wardSelect.html(""); // Sử dụng .html("") để xóa tùy chọn cũ
+							data.data.forEach(ward => {
+								const option = $("<option></option>").val(ward.WardID).text(ward.WardName);
+								wardSelect.append(option);
+							});
+							// Đặt giá trị cho ô select xã/phường
+							wardSelect.find("option:contains('" + selectedWard + "')").prop("selected", true);
+						})
+						.catch(error => {
+							console.error("Lỗi khi lấy dữ liệu phường/xã từ API:", error);
+						});
+				}
+			});
+		</script>
+		</main>
+	</body>
+
+
+</html>

@@ -2,13 +2,17 @@ package com.poly.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.poly.dao.AddressDAO;
 import com.poly.dao.OrderDAO;
+import com.poly.entity.Address;
 import com.poly.entity.Order;
 import com.poly.service.OrderService;
 
@@ -25,6 +29,9 @@ public class OrderController {
 
 	@Autowired
 	HttpServletRequest request;
+	
+	@Autowired
+	AddressDAO addressDAO;
 
 	@RequestMapping("/cart/view")
 	public String cart() {
@@ -32,10 +39,21 @@ public class OrderController {
 	}
 
 	@RequestMapping("/cart/checkout")
-	public String checkout() {
-		if (!(request.isUserInRole("DIRE") || request.isUserInRole("STAF") || request.isUserInRole("CUST"))) {
-			return "redirect:/auth/login/form";
-		}
+	public String checkout(Model model) {
+//		if (!(request.isUserInRole("DIRE") || request.isUserInRole("STAF") || request.isUserInRole("CUST"))) {
+//			return "redirect:/auth/login/form";
+//		}
+			
+		//Lấy danh sách địa chỉ user đang đăng nhập
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+        // Kiểm tra xem người dùng có được xác thực không
+        if (authentication != null && authentication.isAuthenticated()) {
+            // Lấy tên người dùng từ thông tin xác thực
+            String username = authentication.getName();
+            //Lấy ra danh sách địa chỉ
+            model.addAttribute("listAddress", addressDAO.getByIdaccounts(username));
+          }
 		return "cart/checkout";
 	}
 

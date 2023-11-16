@@ -35,7 +35,6 @@
 											<th class="text-center">STT.</th>
 											<th>Mã đơn hàng.</th>
 											<th>Ngày đặt hàng</th>
-											<th>Địa chỉ giao hàng</th>
 											<th class="text-center">#</th>
 										</tr>
 									</thead>
@@ -44,7 +43,6 @@
 											<td class="align-middle">[[${state.index}]]</td>
 											<td class="align-middle">[[${order.id}]]</td>
 											<td class="align-middle">[[${#dates.format(order.createDate, 'dd/MM/yyyy')}]]</td>
-											<td class="align-middle text-start">[[${order.address}]]</td>
 											<td class="align-middle">
 												<a th:href="@{|/order/detail/${order.id}|}" class="btn btn-sm btn-default border-0"
 													title="View your Order Details">

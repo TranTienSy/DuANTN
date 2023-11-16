@@ -1,7 +1,9 @@
 package com.poly.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,4 +34,10 @@ public class OrderDetail implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "Orderid")
 	Order order;
+	
+	@Column(name = "Size")
+	String size;
+	
+	@Column(name = "color")
+	String color;
 }

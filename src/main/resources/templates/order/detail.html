@@ -39,10 +39,11 @@
 							<label class="form-label">Ngày mua:</label>
 							<input th:field="*{createDate}" class="form-control" readonly>
 						</div>
-						<div class="form-group col-sm-12 mb-3">
-							<label class="form-label">Địa chỉ giao hàng:</label>
-							<input th:field="*{address}" class="form-control" readonly>
+						<div class="form-group col-sm-12">
+							<label class="form-label">Địa chỉ</label>
+							<input th:value="${order.tinh}+'-'+${order.huyen}+'-'+${order.xa}+'-'+${order.chitiet}" class="form-control" readonly>
 						</div>
+						
 						<h4>Trạng thái:
 						    <span class="text-success" th:switch="*{status}">
 						        <span th:case="'CHOXULY'">CHỜ XỬ LÝ</span>
@@ -68,6 +69,7 @@
 											<th>Giá</th>
 											<th>Số lượng</th>
 											<th>Size</th>
+											<th>Màu</th>
 											<th>Tổng</th>
 										</tr>
 									</thead>
@@ -77,7 +79,8 @@
 											<td class="align-middle text-start">[[*{product.name}]]</td>
 											<td class="align-middle price">[[*{#numbers.formatDecimal(price,0,'COMMA',3,'POINT')}]] VNĐ</td>
 											<td class="align-middle">[[*{quantity}]]</td>
-											<td class="align-middle">[[*{quality}]]</td>
+											<td class="align-middle">[[*{size}]]</td>
+											<td class="align-middle">[[*{color}]]</td>
 											<td class="align-middle price">[[*{#numbers.formatDecimal(price*quantity,0,'COMMA',3,'POINT')}]] VNĐ</td>
 											
 										</tr>

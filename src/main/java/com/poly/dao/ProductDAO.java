@@ -10,7 +10,7 @@ import com.poly.entity.Product;
 public interface ProductDAO extends JpaRepository<Product, Integer> {
 	@Query("SELECT p FROM Product p WHERE p.category.id=?1")
 	List<Product> findByCategoryId(String cid);
-
-//	@Query(value = "SELECT count(p.id) FROM Products p", nativeQuery = true)
-//	Integer countAllProduct();
+	
+	@Query(value = "SELECT * FROM Products ORDER BY Id DESC", nativeQuery = true)
+	List<Product> getAllProductDESC();
 }

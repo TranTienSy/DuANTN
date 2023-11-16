@@ -8,8 +8,6 @@
 					<th>Giá</th>
 					<th>Ngày tạo</th>
 					<th>Hình ảnh</th>
-					<th>Số lượng</th>
-					<th>Size</th>
 					<th>Danh mục</th>
 					<th>Tình trạng</th>
 					<th>#</th>
@@ -21,9 +19,7 @@
 					<td class="align-center w-25">{{item.name}}</td>
 					<td class="align-center">{{item.price | number:3}} VNĐ</td>
 					<td class="align-center">{{item.createDate | date:'dd/MM/yyyy'}}</td>										
-					<td class="align-center">{{item.image}}</td>
-					<td class="align-center">{{item.quantity}}</td>
-					<td class="align-center">{{item.quality}}</td>		
+					<td class="align-center">{{item.image}}</td>	
 					<td class="align-center">{{item.category.name}}</td>
 					<td class="align-center">{{item.available?'Yes':'No'}}</td>
 					<td class="align-center">

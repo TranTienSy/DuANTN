@@ -60,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 		        productDTO.setAvailable(product.getAvailable());
 		        productDTO.setListOfProductVariants(product.getListOfProductvariants());
 		        productDTO.setCategoryId(Integer.parseInt(product.getCategory().getId().trim()));
-			   
+		        productDTO.setCategory(product.getCategory());
 		       return productDTO;
 		}).collect(Collectors.toList());
 		return listProductDTOs;

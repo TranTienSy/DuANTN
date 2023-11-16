@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.poly.entity.Category;
 import com.poly.entity.Productvariants;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class ProductDTO implements Serializable {
     private Date createDate;
     private Boolean available;
     private Integer categoryId;
+    private Category category;
     private List<Integer> orderDetailIds; 
     private List<Productvariants> listOfProductVariants;
 
